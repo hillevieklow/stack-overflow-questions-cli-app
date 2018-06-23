@@ -6,7 +6,10 @@ class StackOverflow::CLI
   end
 
   def list_questions
-    puts "La la la"
+    @questions = StackOverflow::Question.today
+    @questions.each.with_index(1) do |question, index|
+      puts "#{index}. #{question.question} - #{question.description_short}"
+    end
   end
 
   def menu
