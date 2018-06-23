@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require '../lib/stack_overflow'
+
+StackOverflow::CLI.new.call
