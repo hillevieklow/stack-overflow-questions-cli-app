@@ -1,5 +1,6 @@
-require "stack_overflow/version"
-
-module StackOverflow
-  # Your code goes here...
-end
+require 'open-uri'
+require 'nokogiri'
+require 'pry'
+require_relative "stack_overflow/version"
+require_relative './stack_overflow/question'
+require_relative './stack_overflow/cli'
