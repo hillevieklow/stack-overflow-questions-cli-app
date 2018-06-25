@@ -50,7 +50,6 @@ class Scraper
     question_data = {}
     question_data[:user] = doc.css("div.user-details a").text
     question_data[:description_long] = doc.css("div.post-text").text.strip
-    question_data[:best_answer] = " "
     question_data
   end
 
