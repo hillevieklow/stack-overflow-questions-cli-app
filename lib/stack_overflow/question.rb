@@ -1,6 +1,6 @@
 require 'pry'
 class Question
-  attr_accessor :question, :link, :description_short, :description_long, :votes, :answers, :tags
+  attr_accessor :question, :link, :description_short, :description_long, :best_answer, :user
 
   @@all = []
   @@newest =[]
@@ -12,9 +12,9 @@ class Question
     @description_short = questions_hash[:description_short]
     @type = questions_hash[:type]
 
-    if @type.downcase = "newest"
+    if @type.downcase == "newest"
       @@newest << self
-    elsif @type.downcase = "featured"
+    elsif @type.downcase == "featured"
       @@featured << self
     end
     @@all << self
@@ -24,6 +24,13 @@ class Question
     questions_array.each do |hash|
       self.new(hash)
     end
+  end
+
+  def add_details(details_hash)
+    @user = details_hash[:user]
+    @description_long = details_hash[:description_long]
+    @best_answer = details_hash[:best_answer]
+  end
 
   def self.all
     @@all
