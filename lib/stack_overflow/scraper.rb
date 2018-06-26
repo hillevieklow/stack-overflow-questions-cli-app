@@ -1,8 +1,11 @@
+# Scraper class scrapes questions from www.stackoverflow.com
+
 class Scraper
 
   @@url_featured = "https://stackoverflow.com/questions?sort=featured"
   @@url_newest = "https://stackoverflow.com/questions?sort=newest"
 
+  # initiate the scrape
   def self.setup_scrape
     Question.create(self.scrape_newest)
     Question.create(self.scrape_featured)
@@ -12,9 +15,9 @@ class Scraper
     end
   end
 
+  # Scrapes newest questions
   def self.scrape_newest
     doc = Nokogiri::HTML(open(@@url_newest))
-
     questions = []
     doc.css("div#questions.flush-left").each do |question|
       question.css(".question-summary").each do |q|
@@ -29,6 +32,7 @@ class Scraper
     questions
   end
 
+  # Scrapes featured questions
   def self.scrape_featured
     doc = Nokogiri::HTML(open(@@url_featured))
     questions = []
@@ -45,6 +49,7 @@ class Scraper
     questions
   end
 
+  # Scrapes in-dept details of question by using question_url obtained in above scraping methods
   def self.scrape_question_details(question_url)
     doc = Nokogiri::HTML(open(question_url))
     question_data = {}

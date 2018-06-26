@@ -1,20 +1,22 @@
-# require './lib/question.rb'
-
+# Handles user interface
 class CLI
+  # Accessing question array
   attr_accessor :questions
 
-  # used to format output
+  # Straight line used to format output
   @@divider =  "-----------------------------------------------------------------".yellow
 
+  # Starts the program, scrapes stack-overflow and welcomes user
   def start
     Scraper.setup_scrape
     puts "Welcome to Stack Overflow Questions! \u2665".red
     list_questions
   end
 
+  # Lists questions after users choice
   def list_questions
     input = nil
-    prompt_user = "Choose either 'newest', 'featured' or 'both'. To exit type 'exit'"
+    prompt_user = "Choose either 'newest', 'featured' or 'both'. To exit type 'exit'."
     puts @@divider
     puts prompt_user
     puts @@divider
@@ -42,6 +44,7 @@ class CLI
     end
   end
 
+  # Displays list of questions
   def display_list(questions)
     questions.each.with_index(1) do |question, index|
       puts "#{index}. #{question.question}".red
@@ -51,6 +54,7 @@ class CLI
     end
   end
 
+  # Allows user to view questions, switch lists or exit
   def menu
     input = nil
     puts "Enter the number of the question you want to see, type 'list' to choose a new list of quesitons or type 'exit': "
@@ -68,6 +72,7 @@ class CLI
     end
   end
 
+  # Displays in-dept information about question
   def display_question(question)
     input = nil
     puts @@divider
@@ -85,6 +90,7 @@ class CLI
     end
   end
 
+  # Says goodbye to the user and exits the program 
   def goodbye
     puts "Goodbye!".red
     puts @@divider
