@@ -16,7 +16,9 @@ class Question
     elsif @type.downcase == "featured"
       @@featured << self
     end
-    @@all = @@newest + @@featured
+
+    @@all = @@newest.zip(@@featured).flatten
+
   end
 
   def self.create(questions_array)
