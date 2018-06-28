@@ -22,18 +22,15 @@ class CLI
     puts @@divider
     input =gets.strip.downcase
     if input == "newest"
-      puts "Newest questions: "
       puts @@divider
       @questions = Question.newest
       display_list(@questions)
       menu
     elsif input == "featured"
-      puts "Featured questions: "
       @questions = Question.featured
       display_list(@questions)
       menu
     elsif input == "both"
-      puts "All questions: "
       @questions = Question.all
       display_list(@questions)
       menu
@@ -47,13 +44,21 @@ class CLI
   # Displays list of questions
   def display_list(questions)
     input = nil
-    puts "How many questions would you like to see?"
+    puts "How many questions would you like to see? (1-50)"
+    puts @@divider
     input = gets.strip.to_i
-    questions.each.with_index(1) do |question, index|
-      puts "#{index}. #{question.question}".red
-      puts "#{question.description_short}"
-      puts @@divider
-      break if index == input
+    if input.to_i > 0 && input.to_i < @questions.length + 1
+      questions.each.with_index(1) do |question, index|
+        puts "#{index}. #{question.question}".red
+        puts "#{question.description_short}"
+        puts @@divider
+        break if index == input
+      end
+    elsif input == "exit"
+      goodbye
+    else
+      puts "Please make a valid selection."
+      list_questions
     end
   end
 
@@ -61,6 +66,7 @@ class CLI
   def menu
     input = nil
     puts "Enter the number of the question you want to see, type 'list' to choose a new list of quesitons or type 'exit': "
+    puts @@divider
     input = gets.strip.downcase
     if input.to_i > 0 && input.to_i < @questions.length + 1
       question = @questions[input.to_i - 1]
