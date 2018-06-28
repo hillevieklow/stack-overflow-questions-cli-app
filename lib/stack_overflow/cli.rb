@@ -46,11 +46,14 @@ class CLI
 
   # Displays list of questions
   def display_list(questions)
+    input = nil
+    puts "How many questions would you like to see?"
+    input = gets.strip.to_i
     questions.each.with_index(1) do |question, index|
       puts "#{index}. #{question.question}".red
       puts "#{question.description_short}"
       puts @@divider
-      break if index == 5
+      break if index == input
     end
   end
 
@@ -75,6 +78,7 @@ class CLI
   # Displays in-dept information about question
   def display_question(question)
     input = nil
+    Scraper.initiate_details_scrape(question)
     puts @@divider
     puts "#{question.question}".red
     puts "Asked by: #{question.user}.".red
@@ -90,7 +94,7 @@ class CLI
     end
   end
 
-  # Says goodbye to the user and exits the program 
+  # Says goodbye to the user and exits the program
   def goodbye
     puts "Goodbye!".red
     puts @@divider
