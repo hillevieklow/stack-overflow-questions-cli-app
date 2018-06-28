@@ -5,14 +5,16 @@ class Scraper
   @@url_featured = "https://stackoverflow.com/questions?sort=featured"
   @@url_newest = "https://stackoverflow.com/questions?sort=newest"
 
-  # initiate the scrape
+  # Initiate the scrape
   def self.setup_scrape
     Question.create(self.scrape_newest)
     Question.create(self.scrape_featured)
-    Question.all.each do |question|
-      details = self.scrape_question_details(question.link)
-      question.add_details(details)
-    end
+  end
+
+  # Initiates the scrape of question details
+  def self.initiate_details_scrape(question)
+    details = scrape_question_details(question.link)
+    question.add_details(details)
   end
 
   # Scrapes newest questions
