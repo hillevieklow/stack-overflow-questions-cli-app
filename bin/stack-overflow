@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-require '../lib/stack_overflow'
+require_relative '../lib/stack_overflow'
 
 CLI.new.start
