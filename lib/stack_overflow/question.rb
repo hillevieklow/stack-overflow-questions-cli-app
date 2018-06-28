@@ -1,28 +1,28 @@
 # Creates Question class
 class Question
   # Accessors for question details
-  attr_accessor :question, :link, :description_short, :description_long, :user
+  attr_accessor :question, :question_type, :link, :description_short, :description_long, :user
 
   # Initiates class arrays to empty arrays
   @@all = []
-  @@newest =[]
-  @@featured = []
 
   # Creates new Question Object
   def initialize(questions_hash)
     @question = questions_hash[:question]
     @link = questions_hash[:link]
     @description_short = questions_hash[:description_short]
-    @type = questions_hash[:type]
-    if @type.downcase == "newest"
-      @@newest << self
-    elsif @type.downcase == "featured"
-      @@featured << self
-    end
+    @question_type = questions_hash[:type]
+    @@all << self
+  end
 
-    # Makes @@all contain every other element from @@newest and @@featured
-    @@all = @@newest.zip(@@featured).flatten
+  # Accesses quesitons of type "newest"
+  def self.newest
+    Question.all.select { |question| question.question_type == "newest"}
+  end
 
+  # Accesses quesitons of type "featured"
+  def self.featured
+    Question.all.select { |question| question.question_type == "featured"}
   end
 
   # Creates questions from hash of question info
@@ -43,14 +43,4 @@ class Question
     @@all
   end
 
-  # Returns all question objects of type 'newest'
-  def self.newest
-    @@newest
-  end
-
-  # Returns all question objects of type 'featured'
-  def self.featured
-    @@featured
-  end
-  
 end
